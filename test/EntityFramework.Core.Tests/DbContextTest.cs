@@ -2066,7 +2066,7 @@ namespace Microsoft.Data.Entity.Tests
             where ContextT : DbContext
         {
             var configSource = new MemoryConfigurationSource();
-            configSource.Add(string.Concat("EntityFramework:", contextKeyFunc(typeof(ContextT)), ":ConnectionString"), "Data Source=MyConnectionString");
+            configSource.Add(string.Concat("EntityFramework:", contextKeyFunc(typeof(ContextT)), ":ConnectionString"), "MyConnectionString");
 
             var config = new Configuration();
             config.Add(configSource);
@@ -2088,7 +2088,7 @@ namespace Microsoft.Data.Entity.Tests
                 Assert.NotNull(contextOptions);
                 var rawOptions = ((IDbContextOptions)contextOptions).RawOptions;
                 Assert.Equal(1, rawOptions.Count);
-                Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+                Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
                 Assert.Equal(1, ((IDbContextOptions)contextOptions).Extensions.Count);
                 Assert.Same(contextOptionsExtension, ((IDbContextOptions)contextOptions).Extensions[0]);
             }
@@ -2098,7 +2098,7 @@ namespace Microsoft.Data.Entity.Tests
         public void Context_activation_reads_options_from_configuration_with_key_redirection()
         {
             var configSource = new MemoryConfigurationSource();
-            configSource.Add("Data:DefaultConnection:ConnectionString", "Data Source=MyConnectionString");
+            configSource.Add("Data:DefaultConnection:ConnectionString", "MyConnectionString");
             configSource.Add("EntityFramework:ContextWithDefaults:ConnectionString", "Name=Data:DefaultConnection:ConnectionString");
 
             var config = new Configuration();
@@ -2120,7 +2120,7 @@ namespace Microsoft.Data.Entity.Tests
                 Assert.NotNull(contextOptions);
                 var rawOptions = ((IDbContextOptions)contextOptions).RawOptions;
                 Assert.Equal(1, rawOptions.Count);
-                Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+                Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             }
         }
 
@@ -2128,7 +2128,7 @@ namespace Microsoft.Data.Entity.Tests
         public void Context_activation_reads_options_from_configuration_case_insensitively()
         {
             var configSource = new MemoryConfigurationSource();
-            configSource.Add("entityFramework:contextWithDefaults:connectionString", "Data Source=MyConnectionString");
+            configSource.Add("entityFramework:contextWithDefaults:connectionString", "MyConnectionString");
 
             var config = new Configuration();
             config.Add(configSource);
@@ -2149,7 +2149,7 @@ namespace Microsoft.Data.Entity.Tests
                 Assert.NotNull(contextOptions);
                 var rawOptions = ((IDbContextOptions)contextOptions).RawOptions;
                 Assert.Equal(1, rawOptions.Count);
-                Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+                Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             }
         }
 
